@@ -2,58 +2,100 @@ import axios from 'axios';
 import { useState } from "react";
 
 const Login = () => {
-
   const [emailId, setEmailId] = useState('lo');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    setLoading(true);
 
-  try {
-    const res = await axios.post("http://localhost:7777/login", {
-      email: emailId,
-      password: password,
-      rememberMe: rememberMe,
-    });
-    console.log(res.data);
-  } catch (error) {
-    console.error("Error logging in:", error);
-  }
-};
+    try {
+      const res = await axios.post("http://localhost:7777/login", {
+        email: emailId,
+        password: password,
+        rememberMe: rememberMe,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error logging in:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="flex justify-center mt-10">
-    <div className="card bg-base-300 w-96 shadow-sm">
-    <div className="card-body">
-    <h2 className="card-title font-bold">Login</h2>
+    <div className="flex justify-center items-center min-h-screen bg-base-100">
+      <div className="card w-96 bg-base-200 shadow-2xl border border-base-300">
+        <div className="card-body">
+          {/* Heading */}
+          <h2 className="card-title text-2xl font-bold">
+            Login
+          </h2>
 
-    <div>
- <fieldset className="fieldset">
-  <legend className="fieldset-legend p-2">Email ID:</legend>
-  <input type="text" value={emailId} onChange={(e) => setEmailId(e.target.value)} className="input pl-2" placeholder="Type here" />
- </fieldset>   
+          {/* Email */}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Email ID</span>
+            </label>
+            <input
+              type="email"
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
+              placeholder="Enter email"
+              className="input input-bordered input-md"
+            />
+          </div>
 
- <fieldset className="fieldset">
-  <legend className="fieldset-legend p-2">Password:</legend>
-  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input pl-2" placeholder="Type here" />
- </fieldset> 
+          {/* Password */}
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              className="input input-bordered input-md"
+            />
+          </div>
 
- <fieldset className="fieldset">
-  <legend className="fieldset-legend p-2">Remember me</legend>
-  <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="checkbox bg-base-100" />
- </fieldset>
- 
+          {/* Remember me */}
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text">Remember me</span>
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="checkbox checkbox-sm"
+              />
+            </label>
+          </div>
+
+          {/* Button */}
+          <button
+            onClick={handleLogin}
+            disabled={loading}
+            className="btn btn-primary btn-md mt-4"
+          >
+            {loading ? <span className="loading loading-spinner"></span> : "Login"}
+          </button>
+
+          {/* Sign up link */}
+          <div className="divider">OR</div>
+          <p className="text-center text-sm">
+            Don't have an account?{' '}
+            <a href="/signup" className="link link-primary font-semibold">
+              Sign up here
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
-    <div className="card-actions justify-end">
-      <button className="btn btn-primary pl-2 pr-2" onClick={handleLogin}>
-        Login
-      </button>
-    </div>
-  </div>
-</div>
-</div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

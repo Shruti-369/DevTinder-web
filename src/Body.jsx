@@ -5,13 +5,12 @@ import { Outlet } from 'react-router-dom';
 
 const Body = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-base-100 text-base-content pb-16">
       <NavBar />
-      <Outlet /> 
+      <Outlet />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Body;
-
