@@ -12,11 +12,11 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:7777/login", {
-        email: emailId,
+      const res = await axios.post("http://localhost:5555/login", {
+        emailId: emailId,
         password: password,
         rememberMe: rememberMe,
-      });
+      }, { withCredentials: true });
       console.log(res.data);
     } catch (error) {
       console.error("Error logging in:", error);
@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-base-100">
+    <div className="flex justify-center items-center w-full bg-base-100">
       <div className="card w-96 bg-base-200 shadow-2xl border border-base-300">
         <div className="card-body">
           {/* Heading */}
