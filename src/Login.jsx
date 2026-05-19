@@ -1,11 +1,15 @@
 import axios from 'axios';
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addUser } from './utils/userSlice';
 
 const Login = () => {
-  const [emailId, setEmailId] = useState('lo');
+
+  const [emailId, setEmailId] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,10 +20,15 @@ const Login = () => {
         emailId: emailId,
         password: password,
         rememberMe: rememberMe,
-      }, { withCredentials: true });
+      }, {
+        withCredentials: true
+      });
       console.log(res.data);
+      dispatch(addUser(res.data));
+
     } catch (error) {
       console.error("Error logging in:", error);
+
     } finally {
       setLoading(false);
     }

@@ -7,17 +7,21 @@ import Home from './Home';
 // import Home from "./pages/Home";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
+import { Provider } from "react-redux";
+import appStore from './utils/appStore';
 
 function App() {
   return (
-    <BrowserRouter>
-  <Routes>
-    <Route path="/" element={<Body />}> 
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<h1>Home</h1>} />
-    </Route>
-  </Routes>
-</BrowserRouter>
+    <Provider store={appStore}>
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Body />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<h1>Home</h1>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
