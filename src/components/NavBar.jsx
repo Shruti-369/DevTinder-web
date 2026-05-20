@@ -1,4 +1,4 @@
-import logo from "./assets/logo.png";
+import logo from "../assets/logo.png";
 import { useSelector } from "react-redux";
 
 const NavBar = () => {
