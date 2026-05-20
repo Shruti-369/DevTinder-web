@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { addUser } from './utils/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { addUser } from '../utils/userSlice';
+import { BASE_URL } from '../utils/constants';
 
 const Login = () => {
 
@@ -10,21 +12,23 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5555/login", {
+      const res = await axios.post(BASE_URL + "/login", {
         emailId: emailId,
         password: password,
         rememberMe: rememberMe,
       }, {
         withCredentials: true
       });
-      console.log(res.data);
-      dispatch(addUser(res.data));
+      // console.log(res.data);
+      dispatch(addUser(res.data.user));
+      return navigate("/")
 
     } catch (error) {
       console.error("Error logging in:", error);

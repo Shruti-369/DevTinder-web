@@ -1,9 +1,10 @@
 import './index.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from './NavBar';
-import Body from './Body';
-import Login from './Login';
-import Home from './Home';
+import NavBar from './components/NavBar';
+import Body from './components/Body';
+import Login from './components/Login';
+import Home from './components/Home';
+import Feed from './components/Feed';
 // import Home from "./pages/Home";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
@@ -16,8 +17,10 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Body />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<h1>Home</h1>} />
+            <Route path="/" element={<Feed />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/home" element={<h1>Home</h1>} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

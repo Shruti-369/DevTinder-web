@@ -11,3 +11,5 @@ Redux Toolkit :
 4.create slice
 5.add reducer to store  
   How do u add data to ur redux store - u dispatch(useDispatch) and action [dispatch(action)] 
+
+// useSelector is used to subscibe to the store  
