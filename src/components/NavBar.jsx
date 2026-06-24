@@ -29,9 +29,9 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-200 border-b border-base-300 px-4">
       <div className="flex-1 ">
-        <link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl">
           <img src={logo} alt="DevTinder Logo" className="w-full h-full object-cover" /> DevTinder
-        </link>
+        </Link>
       </div>
 
       {user && (
