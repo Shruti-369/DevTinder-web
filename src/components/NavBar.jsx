@@ -1,18 +1,37 @@
 import logo from "../assets/logo.png";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const NavBar = () => {
 
   const user = useSelector((store) => store.user);
   console.log(user);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        BASE_URL + "/logout",
+        {},
+        { withCredentials: true }
+      );
+
+      dispatch(removeUser()); // Redux se user hatao
+      navigate("/login");     // Login page pe bhejo
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="navbar bg-base-200 border-b border-base-300 px-4">
       <div className="flex-1 ">
-        <a className="btn btn-ghost text-xl">
+        <link to="/" className="btn btn-ghost text-xl">
           <img src={logo} alt="DevTinder Logo" className="w-full h-full object-cover" /> DevTinder
-        </a>
+        </link>
       </div>
 
       {user && (
@@ -57,7 +76,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a onClick={handleLogout}>Logout</a></li>
             </ul>
 
           </div>
